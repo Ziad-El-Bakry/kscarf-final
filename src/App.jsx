@@ -6,7 +6,7 @@
 import "./styles/global.css";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMousePosition, usePageLoaded } from "./hooks/useAnimations";
+import { usePageLoaded } from "./hooks/useAnimations";
 import { SOCIAL_LINKS } from "./data/constants";
 import { ANIMATION_DURATION, ANIMATION_EASE } from "./data/animations";
 import Background    from "./components/Background";
@@ -14,10 +14,8 @@ import StoreHeader   from "./components/StoreHeader";
 import SocialCard    from "./components/SocialCard";
 import SparkleBanner from "./components/SparkleBanner";
 import Footer        from "./components/Footer";
-const isScrollable = document.body.scrollHeight > window.innerHeight;
 
 export default function App() {
-  const mouse  = useMousePosition();
   const loaded = usePageLoaded(80);
   const [focusRing, setFocusRing] = useState(null);
 
@@ -54,7 +52,7 @@ export default function App() {
       }}
     >
       {/* ── Animated Background ── */}
-      <Background mouseX={mouse.x} mouseY={mouse.y} />
+      <Background />
 
       {/* ── Focus ring indicator for keyboard nav ── */}
       <AnimatePresence>
@@ -141,17 +139,8 @@ export default function App() {
         <Footer loaded={loaded} />
       </motion.div>
 
-      {/* ── Scroll position indicator ── */}
-      
-      <motion.div
-        animate={{
-          opacity: [0, 0.7, 0],
-        }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+      {/* ── Scroll indicator — pure CSS pulse ── */}
+      <div
         style={{
           position: "fixed",
           bottom: "clamp(12px, 4vh, 24px)",
@@ -160,10 +149,11 @@ export default function App() {
           fontSize: "clamp(16px, 2.5vw, 24px)",
           pointerEvents: "none",
           color: "rgba(180,140,30,0.3)",
+          animation: "kPulse 2.5s ease-in-out infinite",
         }}
       >
         ↓
-      </motion.div>
+      </div>
     </div>
   );
 }

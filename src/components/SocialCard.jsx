@@ -1,6 +1,5 @@
 // ============================================================
-// k. SCARF — SocialCard Component
-// Developed by programmer Ziad Al-Bakry
+// k. SCARF — SocialCard Component (Fluid Animation Edition)
 // ============================================================
 
 import { useState } from "react";
@@ -8,110 +7,175 @@ import { motion } from "framer-motion";
 import { getIcon, Icons } from "./Icons";
 import { ANIMATION_EASE, ANIMATION_DURATION } from "../data/animations";
 
+// ── Variants (module-level — never recreated) ────────────────
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 18, scale: 0.97 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.55,
+      ease: [0.16, 1, 0.3, 1],
+      delay: i * 0.07 + 0.25,
+    },
+  }),
+};
+
+const shimmerVariants = {
+  rest: { x: "-110%", opacity: 0 },
+  hover: {
+    x: "110%",
+    opacity: 1,
+    transition: { duration: 0.55, ease: "easeInOut" },
+  },
+};
+
+const iconBoxVariants = {
+  rest: { scale: 1, rotate: 0 },
+  hover: {
+    scale: 1.12,
+    rotate: -6,
+    transition: { type: "spring", stiffness: 400, damping: 18 },
+  },
+  tap: { scale: 0.9, rotate: 4 },
+};
+
+const arrowVariants = {
+  rest: { x: 0, opacity: 0.2 },
+  hover: {
+    x: -5,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 350, damping: 20 },
+  },
+};
+
+const accentBarVariants = {
+  rest: { scaleY: 0, opacity: 0 },
+  hover: {
+    scaleY: 1,
+    opacity: 1,
+    transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const badgeVariants = {
+  rest: { scale: 1 },
+  hover: {
+    scale: 1.08,
+    transition: { type: "spring", stiffness: 500, damping: 20 },
+  },
+};
+
 export default function SocialCard({ link, index, loaded }) {
   const [hovered, setHovered] = useState(false);
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: 24 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: ANIMATION_DURATION.slow,
-        ease: ANIMATION_EASE.smooth,
-        delay: index * 0.07 + 0.25,
-      },
-    },
-  };
-
-  const iconVariants = {
-    rest: { scale: 1, rotate: 0 },
-    hover: {
-      scale: 1.06,
-      rotate: -3,
-      transition: {
-        duration: ANIMATION_DURATION.fast,
-        ease: ANIMATION_EASE.smooth,
-      },
-    },
-  };
 
   return (
     <motion.a
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
       onTouchStart={() => setHovered(true)}
-      onTouchEnd={() => setTimeout(() => setHovered(false), 300)}
+      onTouchEnd={() => setTimeout(() => setHovered(false), 350)}
       initial="hidden"
       animate={loaded ? "visible" : "hidden"}
+      whileHover="hover"
+      whileTap="tap"
       variants={cardVariants}
-      style={{
-        textDecoration: "none",
-        display: "block",
-      }}
+      custom={index}
+      style={{ textDecoration: "none", display: "block", outline: "none" }}
     >
       <motion.div
-        animate={hovered ? "hover" : "rest"}
-        initial="rest"
+        variants={{
+          rest: {
+            scale: 1,
+            y: 0,
+            boxShadow: "0 2px 12px rgba(0,0,0,0.5)",
+          },
+          hover: {
+            scale: 1.018,
+            y: -2,
+            boxShadow: `0 8px 32px ${link.color}18, 0 2px 0 ${link.color}22`,
+            transition: { type: "spring", stiffness: 300, damping: 22 },
+          },
+          tap: {
+            scale: 0.97,
+            y: 0,
+            boxShadow: "0 1px 6px rgba(0,0,0,0.6)",
+            transition: { duration: 0.12 },
+          },
+        }}
         style={{
           background: hovered
-            ? `linear-gradient(135deg, ${link.color}18, rgba(12,12,14,0.97), ${link.color}0a)`
-            : "rgba(13,13,16,0.93)",
-          border: `1px solid ${hovered ? link.color + "45" : "rgba(255,255,255,0.055)"}`,
+            ? `linear-gradient(135deg, ${link.color}14, rgba(11,11,14,0.98), ${link.color}08)`
+            : "rgba(13,13,16,0.95)",
+          border: `1px solid ${hovered ? link.color + "50" : "rgba(255,255,255,0.06)"}`,
           borderRadius: 16,
-          boxShadow: hovered
-            ? `0 6px 28px ${link.color}14, 0 1px 0 ${link.color}20`
-            : "0 2px 10px rgba(0,0,0,0.45)",
-          backdropFilter: "blur(16px)",
           position: "relative",
           overflow: "hidden",
+          willChange: "transform",
+          transition: "background 0.35s ease, border-color 0.35s ease",
         }}
-        transition={{
-          duration: ANIMATION_DURATION.fast,
-          ease: ANIMATION_EASE.smooth,
-        }}
-        whileHover={{ scale: 1.013, x: -2 }}
       >
-        {/* Right accent bar */}
+        {/* ── Shimmer sweep on hover ── */}
         <motion.div
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: ANIMATION_DURATION.fast }}
+          variants={shimmerVariants}
           style={{
             position: "absolute",
-            right: 0,
-            top: "15%",
-            bottom: "15%",
-            width: 3,
-            borderRadius: "3px 0 0 3px",
-            background: `linear-gradient(to bottom, transparent, ${link.color}, transparent)`,
+            inset: 0,
+            background: `linear-gradient(105deg, transparent 30%, ${link.color}18 50%, transparent 70%)`,
+            pointerEvents: "none",
+            zIndex: 1,
           }}
         />
 
-        <div style={{ display: "flex", alignItems: "center", gap: "clamp(10px, 2vw, 14px)", padding: "clamp(10px, 2vw, 13px) clamp(12px, 3vw, 16px)" }}>
+        {/* ── Right accent bar ── */}
+        <motion.div
+          variants={accentBarVariants}
+          style={{
+            position: "absolute",
+            right: 0,
+            top: "10%",
+            bottom: "10%",
+            width: 3,
+            borderRadius: "3px 0 0 3px",
+            background: `linear-gradient(to bottom, transparent, ${link.color}, transparent)`,
+            transformOrigin: "center",
+            zIndex: 2,
+          }}
+        />
+
+        {/* ── Card content ── */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "clamp(10px, 2vw, 14px)",
+            padding: "clamp(11px, 2.2vw, 14px) clamp(12px, 3vw, 16px)",
+            position: "relative",
+            zIndex: 3,
+          }}
+        >
           {/* Icon box */}
           <motion.div
-            animate={hovered ? "hover" : "rest"}
-            variants={iconVariants}
+            variants={iconBoxVariants}
             style={{
-              width: "clamp(36px, 8vw, 44px)",
-              height: "clamp(36px, 8vw, 44px)",
-              borderRadius: "clamp(8px, 2vw, 12px)",
+              width: "clamp(38px, 8vw, 46px)",
+              height: "clamp(38px, 8vw, 46px)",
+              borderRadius: "clamp(10px, 2vw, 13px)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
-              background: hovered ? `${link.color}20` : "rgba(255,255,255,0.045)",
-              color: hovered ? link.color : "rgba(255,255,255,0.45)",
-              border: `1px solid ${hovered ? link.color + "38" : "rgba(255,255,255,0.045)"}`,
-              boxShadow: hovered ? `0 0 16px ${link.color}22` : "none",
+              background: hovered ? `${link.color}22` : "rgba(255,255,255,0.05)",
+              color: hovered ? link.color : "rgba(255,255,255,0.4)",
+              border: `1px solid ${hovered ? link.color + "40" : "rgba(255,255,255,0.05)"}`,
+              boxShadow: hovered ? `0 0 18px ${link.color}28` : "none",
               fontSize: "clamp(18px, 4vw, 22px)",
-            }}
-            transition={{
-              duration: ANIMATION_DURATION.fast,
-              ease: ANIMATION_EASE.smooth,
+              transition: "background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s",
             }}
           >
             {getIcon(link.id)}
@@ -119,55 +183,70 @@ export default function SocialCard({ link, index, loaded }) {
 
           {/* Text block */}
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "clamp(4px, 1.5vw, 8px)", marginBottom: "clamp(1px, 0.3vw, 2px)" }}>
-              <motion.span
-                animate={{ color: hovered ? "#fff" : "rgba(255,255,255,0.82)" }}
-                transition={{ duration: ANIMATION_DURATION.fast }}
+            {/* Name + badge row */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "clamp(4px, 1.5vw, 8px)",
+                marginBottom: "clamp(1px, 0.4vw, 3px)",
+              }}
+            >
+              <span
                 style={{
                   fontFamily: "Cairo, sans-serif",
                   fontWeight: 700,
                   fontSize: "clamp(13px, 3vw, 15px)",
+                  color: hovered ? "#fff" : "rgba(255,255,255,0.82)",
+                  transition: "color 0.25s",
                 }}
               >
                 {link.name}
-              </motion.span>
-              <span
+              </span>
+
+              <motion.span
+                variants={badgeVariants}
                 style={{
                   fontSize: "clamp(9px, 1.8vw, 11px)",
                   padding: "1px clamp(6px, 1.5vw, 8px)",
                   borderRadius: 20,
-                  background: hovered ? `${link.color}20` : "rgba(255,255,255,0.045)",
+                  background: hovered ? `${link.color}22` : "rgba(255,255,255,0.05)",
                   color: hovered ? link.color : "rgba(255,255,255,0.3)",
-                  border: `1px solid ${hovered ? link.color + "30" : "rgba(255,255,255,0.05)"}`,
+                  border: `1px solid ${hovered ? link.color + "35" : "rgba(255,255,255,0.06)"}`,
                   fontFamily: "Cairo, sans-serif",
-                  transition: "all 0.3s",
+                  transition: "all 0.25s",
+                  display: "inline-block",
                 }}
               >
                 {link.badge}
-              </span>
+              </motion.span>
             </div>
-            <motion.div
-              animate={{ color: hovered ? link.color : "rgba(255,255,255,0.32)" }}
-              transition={{ duration: ANIMATION_DURATION.fast }}
+
+            {/* Handle */}
+            <div
               style={{
                 fontFamily: "Cairo, sans-serif",
                 fontSize: "clamp(11px, 2.2vw, 13px)",
-                fontWeight: 400,
+                fontWeight: 500,
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 direction: "ltr",
                 textAlign: "right",
+                color: hovered ? link.color : "rgba(255,255,255,0.35)",
+                transition: "color 0.3s",
               }}
             >
               {link.handle}
-            </motion.div>
+            </div>
+
+            {/* Description */}
             <div
               style={{
                 fontFamily: "Cairo, sans-serif",
                 fontSize: "clamp(10px, 2vw, 12px)",
-                color: "rgba(255,255,255,0.22)",
-                marginTop: "clamp(0.5px, 0.2vw, 1px)",
+                color: "rgba(255,255,255,0.2)",
+                marginTop: "clamp(1px, 0.3vw, 2px)",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
@@ -179,11 +258,12 @@ export default function SocialCard({ link, index, loaded }) {
 
           {/* Arrow */}
           <motion.div
-            animate={{ x: hovered ? -2 : 0, color: hovered ? link.color : "rgba(255,255,255,0.14)" }}
-            transition={{ duration: ANIMATION_DURATION.fast }}
+            variants={arrowVariants}
             style={{
               flexShrink: 0,
               fontSize: "clamp(16px, 4vw, 20px)",
+              color: hovered ? link.color : "rgba(255,255,255,0.15)",
+              transition: "color 0.3s",
             }}
           >
             <Icons.Arrow />
