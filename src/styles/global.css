@@ -6,9 +6,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
 
 /* Reset */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: #080808;
@@ -19,13 +27,34 @@ body {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar          { width: 4px; }
-::-webkit-scrollbar-track     { background: #080808; }
-::-webkit-scrollbar-thumb     { background: rgba(180,140,30,0.28); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover{ background: rgba(180,140,30,0.45); }
+::-webkit-scrollbar {
+  width: 4px;
+}
 
-/* Tap highlight */
-a { -webkit-tap-highlight-color: transparent; }
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(180, 140, 30, 0.28);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(180, 140, 30, 0.45);
+}
+
+/* Remove tap highlight & browser focus outline */
+a {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+a:focus-visible {
+  outline: 2px solid rgba(180, 140, 30, 0.5);
+  outline-offset: 3px;
+  border-radius: 16px;
+}
 
 /* Mobile viewport meta optimizations */
 @supports (padding: max(0px)) {
@@ -38,13 +67,39 @@ a { -webkit-tap-highlight-color: transparent; }
 /* ── Keyframes ─────────────────────────────────────────────── */
 
 @keyframes kSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes kPulse {
-  0%,100% { opacity: 0.09; }
-  50%     { opacity: 0.17; }
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes kCardTap {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(0.97);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* ── Interactive footer section ─────────────────────────────── */
@@ -52,14 +107,15 @@ a { -webkit-tap-highlight-color: transparent; }
 .dev-credit {
   font-family: 'Courier New', monospace;
   font-size: 11px;
-  color: rgba(255,255,255,0.1);
+  color: rgba(255, 255, 255, 0.1);
   letter-spacing: 0.06em;
   cursor: default;
   transition: color 0.4s, text-shadow 0.4s;
 }
+
 .dev-credit:hover {
-  color: rgba(180,140,30,0.55);
-  text-shadow: 0 0 12px rgba(180,140,30,0.3);
+  color: rgba(180, 140, 30, 0.55);
+  text-shadow: 0 0 12px rgba(180, 140, 30, 0.3);
 }
 
 /* ── Responsive Utility Classes ────────────────────────────── */
@@ -89,6 +145,7 @@ a { -webkit-tap-highlight-color: transparent; }
     background: white;
     color: black;
   }
+
   a {
     color: #0066cc;
   }

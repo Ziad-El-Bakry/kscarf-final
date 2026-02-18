@@ -1,19 +1,23 @@
 // ============================================================
-// k. SCARF — Custom Hooks
-// Developed by programmer Ziad Al-Bakry
+// k. SCARF — Custom Hooks (High Performance Edition)
 // ============================================================
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
 
-/** Track mouse/pointer position */
+/** Track mouse/pointer position — throttled to 50ms to reduce re-renders */
 export function useMousePosition() {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [pos, setPos] = useState({ x: -999, y: -999 });
+  const lastCall = useRef(0);
 
   useEffect(() => {
-    const handler = (e) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", handler);
+    const handler = (e) => {
+      const now = Date.now();
+      if (now - lastCall.current < 50) return; // throttle: max 20fps
+      lastCall.current = now;
+      setPos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handler, { passive: true });
     return () => window.removeEventListener("mousemove", handler);
   }, []);
 
@@ -23,7 +27,6 @@ export function useMousePosition() {
 /** Delay-mount to trigger CSS entrance animations */
 export function usePageLoaded(delayMs = 80) {
   const [loaded, setLoaded] = useState(false);
-  
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), delayMs);

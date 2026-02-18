@@ -1,152 +1,86 @@
 // ============================================================
-// k. SCARF — Background Component (Midnight Tech Edition)
+// k. SCARF — Background Component (High Performance Edition)
 // ============================================================
-import { useMemo } from "react";
-import { motion } from "framer-motion";
 
-const PARTICLE_COLORS = ["#1e3a8a", "#2563eb", "#1d4ed8", "#0ea5e9"];
+// All animations are pure CSS — zero JS per frame, GPU compositor only.
+const bgStyles = `
+  @keyframes orb-float-1 {
+    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.12; }
+    50%       { transform: translateY(-30px) scale(1.06); opacity: 0.18; }
+  }
+  @keyframes orb-float-2 {
+    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.08; }
+    50%       { transform: translateY(20px) scale(1.08); opacity: 0.14; }
+  }
+  @keyframes grid-drift {
+    0%   { background-position: 0% 0%; }
+    100% { background-position: 80px 80px; }
+  }
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+  .bg-orb-1 {
+    width: 420px; height: 420px;
+    top: -120px; left: -120px;
+    background: #1e3a8a;
+    filter: blur(130px);
+    animation: orb-float-1 9s ease-in-out infinite;
+  }
+  .bg-orb-2 {
+    width: 320px; height: 320px;
+    bottom: -80px; right: -60px;
+    background: #2563eb;
+    filter: blur(110px);
+    animation: orb-float-2 11s ease-in-out infinite 2s;
+  }
+  .bg-orb-3 {
+    width: 200px; height: 200px;
+    top: 40%; left: 60%;
+    background: #1d4ed8;
+    filter: blur(80px);
+    animation: orb-float-1 13s ease-in-out infinite 4s;
+    opacity: 0.07;
+  }
+  .bg-orb-4 {
+    width: 160px; height: 160px;
+    top: 20%; left: 10%;
+    background: #0ea5e9;
+    filter: blur(70px);
+    animation: orb-float-2 15s ease-in-out infinite 1s;
+    opacity: 0.06;
+  }
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image:
+      linear-gradient(rgba(59,130,246,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,1) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: grid-drift 60s linear infinite;
+    pointer-events: none;
+    will-change: background-position;
+  }
+`;
 
-function generateParticles(count) {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    size: Math.random() * 70 + 20,
-    left: Math.random() * 100,
-    top: Math.random() * 100,
-    color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)],
-    duration: Math.random() * 6 + 5,
-    delay: Math.random() * 4,
-  }));
-}
-
-export default function Background({ mouseX, mouseY }) {
-  const particles = useMemo(() => generateParticles(14), []);
-
+export default function Background() {
   return (
     <>
-      <motion.div
-        animate={{
-          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            "linear-gradient(rgba(37,99,235,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.25) 1px, transparent 1px)",
-          opacity: 0.2,
-          backgroundSize: "80px 80px",
-          pointerEvents: "none",
-        }}
-      />
+      <style>{bgStyles}</style>
 
-      {/* Cursor soft glow */}
-      <motion.div
-        animate={{
-          left: mouseX - 300,
-          top: mouseY - 150,
-        }}
-        transition={{ type: "tween", duration: 0.15 }}
-        style={{
-          position: "fixed",
-          pointerEvents: "none",
-          zIndex: 40,
-          width: 300,
-          height: 300,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 65%)",
-        }}
-      />
-
-      {/* Ambient mesh lights */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          overflow: "hidden",
-          pointerEvents: "none",
-        }}
-      >
-        <motion.div
-          animate={{ opacity: [0.1, 0.16, 0.1], scale: [1, 1.06, 1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            position: "absolute",
-            width: 420,
-            height: 420,
-            top: -120,
-            left: -120,
-            borderRadius: "50%",
-            background: "#1e3a8a",
-            filter: "blur(140px)",
-          }}
-        />
-
-        <motion.div
-          animate={{ opacity: [0.08, 0.14, 0.08], scale: [1, 1.08, 1] }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-          style={{
-            position: "absolute",
-            width: 320,
-            height: 320,
-            bottom: -80,
-            right: -60,
-            borderRadius: "50%",
-            background: "#2563eb",
-            filter: "blur(120px)",
-          }}
-        />
+      {/* Ambient orbs — pure CSS, no JS per frame */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+        <div className="bg-orb bg-orb-1" />
+        <div className="bg-orb bg-orb-2" />
+        <div className="bg-orb bg-orb-3" />
+        <div className="bg-orb bg-orb-4" />
       </div>
 
-      {/* Floating particles */}
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          animate={{
-            opacity: [0.04, 0.1, 0.04],
-            y: [0, -25, 0],
-          }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          style={{
-            position: "absolute",
-            width: p.size,
-            height: p.size,
-            left: `${p.left}%`,
-            top: `${p.top}%`,
-            borderRadius: "50%",
-            background: p.color,
-            filter: "blur(40px)",
-            pointerEvents: "none",
-          }}
-        />
-      ))}
-
-      {/* Subtle grid */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          opacity: 0.03,
-          backgroundImage:
-            "linear-gradient(rgba(59,130,246,1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,1) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-          pointerEvents: "none",
-        }}
-      />
+      {/* Subtle animated grid */}
+      <div className="bg-grid" />
     </>
   );
 }
