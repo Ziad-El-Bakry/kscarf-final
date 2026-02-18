@@ -1,0 +1,95 @@
+/* ============================================================
+   k. SCARF — Global Styles
+   Developed by programmer Ziad El-Bakry
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #080808;
+  min-height: 100vh;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar          { width: 4px; }
+::-webkit-scrollbar-track     { background: #080808; }
+::-webkit-scrollbar-thumb     { background: rgba(180,140,30,0.28); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover{ background: rgba(180,140,30,0.45); }
+
+/* Tap highlight */
+a { -webkit-tap-highlight-color: transparent; }
+
+/* Mobile viewport meta optimizations */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+}
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+
+@keyframes kSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes kPulse {
+  0%,100% { opacity: 0.09; }
+  50%     { opacity: 0.17; }
+}
+
+/* ── Interactive footer section ─────────────────────────────── */
+
+.dev-credit {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.1);
+  letter-spacing: 0.06em;
+  cursor: default;
+  transition: color 0.4s, text-shadow 0.4s;
+}
+.dev-credit:hover {
+  color: rgba(180,140,30,0.55);
+  text-shadow: 0 0 12px rgba(180,140,30,0.3);
+}
+
+/* ── Responsive Utility Classes ────────────────────────────── */
+
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* ── Print styles ──────────────────────────────────────────── */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  a {
+    color: #0066cc;
+  }
+}
