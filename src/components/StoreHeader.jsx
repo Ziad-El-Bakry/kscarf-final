@@ -43,6 +43,31 @@ export default function StoreHeader({ loaded }) {
       variants={containerVariants}
       style={{ textAlign: "center", marginBottom: "clamp(24px, 6vw, 36px)" }}
     >
+      {/* ── Ramadan greeting ── */}
+      <motion.div
+        variants={itemVariants}
+        style={{
+          marginBottom: "clamp(10px, 2.5vw, 14px)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "clamp(6px, 1.5vw, 10px)",
+        }}
+      >
+        <span
+          className="ramadan-greeting"
+          style={{
+            fontFamily: "Cairo, sans-serif",
+            fontSize: "clamp(14px, 3vw, 18px)",
+            fontWeight: 700,
+            letterSpacing: "0.12em",
+            color: "#d4a017",
+          }}
+        >
+          🌙 رمضان كريم ✨
+        </span>
+      </motion.div>
+
       {/* Era tag */}
       <motion.div
         variants={itemVariants}
