@@ -14,6 +14,7 @@ import StoreHeader   from "./components/StoreHeader";
 import SocialCard    from "./components/SocialCard";
 import SparkleBanner from "./components/SparkleBanner";
 import Footer        from "./components/Footer";
+import RamadanOverlay from "./components/RamadanOverlay";
 
 export default function App() {
   const loaded = usePageLoaded(80);
@@ -53,6 +54,9 @@ export default function App() {
     >
       {/* ── Animated Background ── */}
       <Background />
+
+      {/* ── Ramadan seasonal overlay ── */}
+      <RamadanOverlay />
 
       {/* ── Focus ring indicator for keyboard nav ── */}
       <AnimatePresence>

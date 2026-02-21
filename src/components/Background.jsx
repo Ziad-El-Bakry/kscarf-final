@@ -25,40 +25,40 @@ const bgStyles = `
   .bg-orb-1 {
     width: 420px; height: 420px;
     top: -120px; left: -120px;
-    background: #1e3a8a;
+    background: #0d3b4a;
     filter: blur(130px);
     animation: orb-float-1 9s ease-in-out infinite;
   }
   .bg-orb-2 {
     width: 320px; height: 320px;
     bottom: -80px; right: -60px;
-    background: #2563eb;
+    background: #1a5276;
     filter: blur(110px);
     animation: orb-float-2 11s ease-in-out infinite 2s;
   }
   .bg-orb-3 {
     width: 200px; height: 200px;
     top: 40%; left: 60%;
-    background: #1d4ed8;
+    background: #0b3d5e;
     filter: blur(80px);
     animation: orb-float-1 13s ease-in-out infinite 4s;
-    opacity: 0.07;
+    opacity: 0.10;
   }
   .bg-orb-4 {
     width: 160px; height: 160px;
     top: 20%; left: 10%;
-    background: #0ea5e9;
+    background: #0e2d3d;
     filter: blur(70px);
     animation: orb-float-2 15s ease-in-out infinite 1s;
-    opacity: 0.06;
+    opacity: 0.09;
   }
   .bg-grid {
     position: absolute;
     inset: 0;
-    opacity: 0.025;
+    opacity: 0.022;
     background-image:
-      linear-gradient(rgba(59,130,246,1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(59,130,246,1) 1px, transparent 1px);
+      linear-gradient(rgba(100,200,220,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100,200,220,1) 1px, transparent 1px);
     background-size: 80px 80px;
     animation: grid-drift 60s linear infinite;
     pointer-events: none;

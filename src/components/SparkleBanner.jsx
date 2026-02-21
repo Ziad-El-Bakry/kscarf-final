@@ -29,7 +29,7 @@ function Spark({ x, y, color, id }) {
         position: "fixed",
         width: 6,
         height: 6,
-        borderRadius: "50%",
+        borderRadius: "10%",
         background: color,
         pointerEvents: "none",
         zIndex: 9999,
