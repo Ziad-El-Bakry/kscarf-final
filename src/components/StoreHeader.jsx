@@ -43,6 +43,38 @@ export default function StoreHeader({ loaded }) {
       variants={containerVariants}
       style={{ textAlign: "center", marginBottom: "clamp(24px, 6vw, 36px)" }}
     >
+      {/* Eid Offers Banner */}
+      <motion.div
+        variants={itemVariants}
+        style={{
+          display: "inline-block",
+          marginBottom: "clamp(12px, 3vw, 16px)",
+          padding: "clamp(4px, 1vw, 6px) clamp(16px, 4vw, 24px)",
+          background: "linear-gradient(135deg, rgba(180,140,30,0.15) 0%, rgba(180,140,30,0.05) 100%)",
+          border: "1px solid rgba(180,140,30,0.3)",
+          borderRadius: 30,
+          boxShadow: "0 0 15px rgba(180,140,30,0.2)",
+          width: "clamp(200px, 60vw, 300px)",
+          overflow: "hidden",
+        }}
+      >
+        <motion.div
+          animate={{ x: ["100%", "-100%"] }}
+          transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+          style={{
+            whiteSpace: "nowrap",
+            fontFamily: "Cairo, sans-serif",
+            fontWeight: 900,
+            fontSize: "clamp(12px, 2.5vw, 14px)",
+            color: "#e8d48a",
+            letterSpacing: "0.05em",
+            display: "inline-block",
+          }}
+        >
+          ✨ اسأل عن عروض العيد 🌙
+        </motion.div>
+      </motion.div>
+
       {/* Era tag */}
       <motion.div
         variants={itemVariants}
@@ -51,6 +83,7 @@ export default function StoreHeader({ loaded }) {
           alignItems: "center",
           gap: "clamp(6px, 1.5vw, 8px)",
           marginBottom: "clamp(16px, 4vw, 20px)",
+          position: "relative",
         }}
       >
         <motion.div
