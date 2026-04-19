@@ -133,7 +133,7 @@ export default function Background() {
       {/* Snowfall effect over the entire background */}
       <Snowfall 
         color="#fff" 
-        snowflakeCount={80} 
+        snowflakeCount={100} 
         style={{
           position: "absolute",
           inset: 0,
