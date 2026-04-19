@@ -1,68 +1,65 @@
 // ============================================================
-// k. SCARF — Background Component (High Performance Edition)
+// k. SCARF — Background Component (Midnight Amethyst Edition)
 // ============================================================
 
-// All animations are pure CSS — zero JS per frame, GPU compositor only.
 const bgStyles = `
-  @keyframes orb-float-1 {
-    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.12; }
-    50%       { transform: translateY(-30px) scale(1.06); opacity: 0.18; }
+  @keyframes blob-float-1 {
+    0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.6; }
+    33%       { transform: translate(30px, -50px) scale(1.1); opacity: 0.8; }
+    66%       { transform: translate(-20px, 20px) scale(0.9); opacity: 0.7; }
   }
-  @keyframes orb-float-2 {
-    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.08; }
-    50%       { transform: translateY(20px) scale(1.08); opacity: 0.14; }
+  @keyframes blob-float-2 {
+    0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.5; }
+    33%       { transform: translate(-40px, 40px) scale(0.95); opacity: 0.7; }
+    66%       { transform: translate(20px, -20px) scale(1.05); opacity: 0.6; }
   }
-  @keyframes grid-drift {
-    0%   { background-position: 0% 0%; }
-    100% { background-position: 80px 80px; }
+  @keyframes twinkle {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0; transform: scale(0.5); }
+  }
+  @keyframes spark-drift {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    20% { opacity: var(--max-opacity, 0.8); }
+    80% { opacity: var(--max-opacity, 0.8); }
+    100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
   }
   .bg-orb {
     position: absolute;
     border-radius: 50%;
     will-change: transform, opacity;
     pointer-events: none;
+    filter: blur(90px);
   }
   .bg-orb-1 {
-    width: 420px; height: 420px;
-    top: -120px; left: -120px;
-    background: #1e3a8a;
-    filter: blur(130px);
-    animation: orb-float-1 9s ease-in-out infinite;
+    width: 60vw; height: 60vw;
+    top: -20vw; left: -10vw;
+    background: #36175E; /* Deep Purple */
+    animation: blob-float-1 15s ease-in-out infinite;
   }
   .bg-orb-2 {
-    width: 320px; height: 320px;
-    bottom: -80px; right: -60px;
-    background: #2563eb;
-    filter: blur(110px);
-    animation: orb-float-2 11s ease-in-out infinite 2s;
+    width: 70vw; height: 70vw;
+    bottom: -30vw; right: -20vw;
+    background: #802360; /* Midnight Magenta */
+    filter: blur(120px);
+    animation: blob-float-2 18s ease-in-out infinite 2s;
   }
   .bg-orb-3 {
-    width: 200px; height: 200px;
-    top: 40%; left: 60%;
-    background: #1d4ed8;
-    filter: blur(80px);
-    animation: orb-float-1 13s ease-in-out infinite 4s;
-    opacity: 0.07;
+    width: 50vw; height: 50vw;
+    top: 30%; left: 40%;
+    background: #1B2956; /* Deep Indigo / Blue */
+    animation: blob-float-1 20s ease-in-out infinite 4s;
+    opacity: 0.5;
   }
-  .bg-orb-4 {
-    width: 160px; height: 160px;
-    top: 20%; left: 10%;
-    background: #0ea5e9;
-    filter: blur(70px);
-    animation: orb-float-2 15s ease-in-out infinite 1s;
-    opacity: 0.06;
-  }
-  .bg-grid {
-    position: absolute;
-    inset: 0;
-    opacity: 0.025;
-    background-image:
-      linear-gradient(rgba(59,130,246,1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(59,130,246,1) 1px, transparent 1px);
-    background-size: 80px 80px;
-    animation: grid-drift 60s linear infinite;
+  .bg-grain {
+    position: fixed;
+    top: -50%; left: -50%;
+    right: -50%; bottom: -50%;
+    width: 200%; height: 200%;
+    background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+    opacity: 0.04;
     pointer-events: none;
-    will-change: background-position;
+    z-index: 1;
   }
 `;
 
@@ -71,16 +68,35 @@ export default function Background() {
     <>
       <style>{bgStyles}</style>
 
-      {/* Ambient orbs — pure CSS, no JS per frame */}
+      {/* Ambient orbs — pure CSS */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
         <div className="bg-orb bg-orb-1" />
         <div className="bg-orb bg-orb-2" />
         <div className="bg-orb bg-orb-3" />
-        <div className="bg-orb bg-orb-4" />
       </div>
 
-      {/* Subtle animated grid */}
-      <div className="bg-grid" />
+      {/* Magical Sparks / Twinkling effects */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
+        {Array.from({ length: 40 }).map((_, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              width: Math.random() * 3 + 1 + "px",
+              height: Math.random() * 3 + 1 + "px",
+              background: ["#E0A3B8", "#D8BFD8", "#FFB6C1", "#FFFFFF"][Math.floor(Math.random() * 4)],
+              borderRadius: "50%",
+              left: Math.random() * 100 + "%",
+              top: Math.random() * 100 + 100 + "%",
+              boxShadow: "0 0 8px rgba(255,182,193,0.8)",
+              "--max-opacity": Math.random() * 0.5 + 0.3,
+              animation: `spark-drift ${Math.random() * 15 + 10}s linear infinite ${Math.random() * 10}s, twinkle ${Math.random() * 3 + 2}s ease-in-out infinite ${Math.random() * 5}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="bg-grain" />
     </>
   );
 }

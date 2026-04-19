@@ -110,9 +110,9 @@ export default function SocialCard({ link, index, loaded }) {
         }}
         style={{
           background: hovered
-            ? `linear-gradient(135deg, ${link.color}14, rgba(11,11,14,0.98), ${link.color}08)`
-            : "rgba(13,13,16,0.95)",
-          border: `1px solid ${hovered ? link.color + "50" : "rgba(255,255,255,0.06)"}`,
+            ? `linear-gradient(135deg, ${link.color}14, rgba(30, 15, 50, 0.8), ${link.color}08)`
+            : "rgba(18, 10, 28, 0.6)",
+          border: `1px solid ${hovered ? link.color + "50" : "rgba(255,255,255,0.08)"}`,
           borderRadius: 16,
           position: "relative",
           overflow: "hidden",
@@ -210,9 +210,9 @@ export default function SocialCard({ link, index, loaded }) {
                   fontSize: "clamp(9px, 1.8vw, 11px)",
                   padding: "1px clamp(6px, 1.5vw, 8px)",
                   borderRadius: 20,
-                  background: hovered ? `${link.color}22` : "rgba(255,255,255,0.05)",
-                  color: hovered ? link.color : "rgba(255,255,255,0.3)",
-                  border: `1px solid ${hovered ? link.color + "35" : "rgba(255,255,255,0.06)"}`,
+                  background: hovered ? `${link.color}22` : "rgba(224, 163, 184, 0.1)",
+                  color: hovered ? link.color : "rgba(224, 163, 184, 0.9)",
+                  border: `1px solid ${hovered ? link.color + "35" : "rgba(224, 163, 184, 0.2)"}`,
                   fontFamily: "Cairo, sans-serif",
                   transition: "all 0.25s",
                   display: "inline-block",

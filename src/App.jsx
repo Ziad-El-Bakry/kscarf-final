@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePageLoaded } from "./hooks/useAnimations";
 import { SOCIAL_LINKS } from "./data/constants";
 import { ANIMATION_DURATION, ANIMATION_EASE } from "./data/animations";
-import Background    from "./components/Background";
+import AuroraStars   from "./components/AuroraStars";
 import StoreHeader   from "./components/StoreHeader";
 import SocialCard    from "./components/SocialCard";
 import SparkleBanner from "./components/SparkleBanner";
@@ -52,7 +52,7 @@ export default function App() {
       }}
     >
       {/* ── Animated Background ── */}
-      <Background />
+      <AuroraStars />
 
       {/* ── Focus ring indicator for keyboard nav ── */}
       <AnimatePresence>
@@ -67,7 +67,7 @@ export default function App() {
               top: focusRing.top - 4,
               width: focusRing.width + 8,
               height: focusRing.height + 8,
-              border: "2px solid rgba(180,140,30,0.6)",
+              border: "2px solid rgba(224, 163, 184, 0.6)",
               borderRadius: 14,
               pointerEvents: "none",
               zIndex: 9998,
@@ -148,7 +148,7 @@ export default function App() {
           transform: "translateX(-50%)",
           fontSize: "clamp(16px, 2.5vw, 24px)",
           pointerEvents: "none",
-          color: "rgba(180,140,30,0.3)",
+          color: "rgba(224, 163, 184, 0.4)",
           animation: "kPulse 2.5s ease-in-out infinite",
         }}
       >

@@ -55,7 +55,7 @@ export default function Footer({ loaded }) {
           style={{
             height: 1,
             width: "clamp(20px, 5vw, 28px)",
-            background: "linear-gradient(to right, transparent, rgba(180,140,30,0.2))",
+            background: "linear-gradient(to right, transparent, rgba(224, 163, 184, 0.3))",
             transformOrigin: "left",
           }}
         />
@@ -63,7 +63,7 @@ export default function Footer({ loaded }) {
           style={{
             fontSize: "clamp(9px, 1.5vw, 10px)",
             letterSpacing: "0.2em",
-            color: "rgba(180,140,30,0.28)",
+            color: "rgba(255, 255, 255, 0.4)",
             fontFamily: "Georgia, serif",
             textTransform: "uppercase",
             whiteSpace: "nowrap",
@@ -76,7 +76,7 @@ export default function Footer({ loaded }) {
           style={{
             height: 1,
             width: "clamp(20px, 5vw, 28px)",
-            background: "linear-gradient(to left, transparent, rgba(180,140,30,0.2))",
+            background: "linear-gradient(to left, transparent, rgba(224, 163, 184, 0.3))",
             transformOrigin: "right",
           }}
         />
@@ -86,7 +86,7 @@ export default function Footer({ loaded }) {
         variants={itemVariants}
         style={{
           fontSize: "clamp(11px, 2vw, 11px)",
-          color: "rgba(255,255,255,0.13)",
+          color: "rgba(255, 255, 255, 0.2)",
           fontFamily: "Cairo, sans-serif",
         }}
       >
@@ -97,7 +97,7 @@ export default function Footer({ loaded }) {
         variants={itemVariants}
         style={{
           fontSize: "clamp(10px, 1.8vw, 10px)",
-          color: "rgba(255,255,255,0.1)",
+          color: "rgba(255, 255, 255, 0.15)",
           fontFamily: "'Courier New', monospace",
           marginTop: "clamp(2px, 0.5vw, 4px)",
           letterSpacing: "0.05em",

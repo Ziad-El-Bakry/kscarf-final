@@ -40,12 +40,11 @@ function Spark({ x, y, color, id }) {
 }
 
 const SPARK_COLORS = [
-  "#daa520",
-  "#fff3a0",
-  "#b8860b",
-  "#f5d060",
-  "#e8c840",
-  "#fffbe0",
+  "#E0A3B8",
+  "#D8BFD8",
+  "#FFB6C1",
+  "#BA55D3",
+  "#9370DB",
 ];
 
 export default function SparkleBanner({ loaded }) {
