@@ -21,18 +21,27 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: ANIMATION_DURATION.normal, ease: ANIMATION_EASE.smooth },
+    transition: {
+      duration: ANIMATION_DURATION.normal,
+      ease: ANIMATION_EASE.smooth,
+    },
   },
 };
 
 const lineScaleVariants = {
   hidden: { scaleX: 0 },
-  visible: { scaleX: 1, transition: { duration: ANIMATION_DURATION.slow, delay: 0.2 } },
+  visible: {
+    scaleX: 1,
+    transition: { duration: ANIMATION_DURATION.slow, delay: 0.2 },
+  },
 };
 
 const dividerDotVariants = {
   hidden: { scale: 0 },
-  visible: { scale: 1, transition: { duration: ANIMATION_DURATION.normal, delay: 0.4 } },
+  visible: {
+    scale: 1,
+    transition: { duration: ANIMATION_DURATION.normal, delay: 0.4 },
+  },
 };
 
 export default function StoreHeader({ loaded }) {
@@ -58,7 +67,8 @@ export default function StoreHeader({ loaded }) {
           style={{
             width: "clamp(24px, 5vw, 32px)",
             height: 1,
-            background: "linear-gradient(to right, transparent, rgba(224, 163, 184, 0.4))",
+            background:
+              "linear-gradient(to right, transparent, rgba(224, 163, 184, 0.4))",
             transformOrigin: "left",
           }}
         />
@@ -78,7 +88,8 @@ export default function StoreHeader({ loaded }) {
           style={{
             width: "clamp(24px, 5vw, 32px)",
             height: 1,
-            background: "linear-gradient(to left, transparent, rgba(224, 163, 184, 0.4))",
+            background:
+              "linear-gradient(to left, transparent, rgba(224, 163, 184, 0.4))",
             transformOrigin: "right",
           }}
         />
@@ -87,7 +98,11 @@ export default function StoreHeader({ loaded }) {
       {/* Logo */}
       <motion.div
         variants={itemVariants}
-        style={{ position: "relative", display: "inline-block", marginBottom: "clamp(12px, 3vw, 15px)" }}
+        style={{
+          position: "relative",
+          display: "inline-block",
+          marginBottom: "clamp(12px, 3vw, 15px)",
+        }}
       >
         <motion.div
           whileHover={{ scale: 1.02 }}
@@ -119,7 +134,12 @@ export default function StoreHeader({ loaded }) {
             transition={{ duration: 4, repeat: Infinity }}
             src={LOGO_SRC}
             alt={`${STORE_INFO.name} Logo`}
-            style={{ width: "100%", height: "100%", objectFit: "contain", padding: 8 }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              padding: 8,
+            }}
           />
           {/* Spinning ring — pure CSS */}
           <div
@@ -146,7 +166,8 @@ export default function StoreHeader({ loaded }) {
           fontSize: "clamp(28px, 7vw, 38px)",
           letterSpacing: "0.18em",
           marginTop: "clamp(4px, 1vw, 6px)",
-          background: "linear-gradient(to right, #E0A3B8, #D8BFD8, #802360, #1B2956, #D4A017, #E0A3B8)",
+          background:
+            "linear-gradient(to right, #E0A3B8, #D8BFD8, #802360, #1B2956, #D4A017, #E0A3B8)",
           backgroundSize: "200% auto",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -173,14 +194,20 @@ export default function StoreHeader({ loaded }) {
       {/* Divider */}
       <motion.div
         variants={itemVariants}
-        style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(8px, 1.5vw, 10px)" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "clamp(8px, 1.5vw, 10px)",
+        }}
       >
         <motion.div
           variants={lineScaleVariants}
           style={{
             height: 1,
             width: "clamp(36px, 8vw, 48px)",
-            background: "linear-gradient(to right, transparent, rgba(224, 163, 184, 0.3))",
+            background:
+              "linear-gradient(to right, transparent, rgba(224, 163, 184, 0.3))",
             transformOrigin: "left",
           }}
         />
@@ -198,7 +225,8 @@ export default function StoreHeader({ loaded }) {
           style={{
             height: 1,
             width: "clamp(36px, 8vw, 48px)",
-            background: "linear-gradient(to left, transparent, rgba(224, 163, 184, 0.3))",
+            background:
+              "linear-gradient(to left, transparent, rgba(224, 163, 184, 0.3))",
             transformOrigin: "right",
           }}
         />
