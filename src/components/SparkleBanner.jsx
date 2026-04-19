@@ -1,6 +1,6 @@
 // ============================================================
 // k. SCARF — SparkleBanner — Interactive Last Section
-// Developed by programmer Ziad Al-Bakry
+// Developed by programmer Ziad El-Bakry
 // ============================================================
 
 import { useState, useRef, useCallback } from "react";

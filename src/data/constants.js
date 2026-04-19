@@ -7,7 +7,7 @@ export const STORE_INFO = {
   name: "k. SCARF",
   tagline: "أناقتك.. هويتك",
   subtitle: "Fashion · Elegance · Identity",
-  year: "2025",
+  year: "2026",
   developer: "Ziad El-Bakry",
 };
 

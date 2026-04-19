@@ -86,7 +86,12 @@ export default function SocialCard({ link, index, loaded }) {
       whileTap="tap"
       variants={cardVariants}
       custom={index}
-      style={{ textDecoration: "none", display: "block", outline: "none" }}
+      style={{
+        textDecoration: "none",
+        display: "block",
+        outline: "none",
+        WebkitTapHighlightColor: "transparent",
+      }}
     >
       <motion.div
         variants={{
@@ -98,7 +103,8 @@ export default function SocialCard({ link, index, loaded }) {
           hover: {
             scale: 1.018,
             y: -2,
-            boxShadow: `0 8px 32px ${link.color}18, 0 2px 0 ${link.color}22`,
+            // ✅ تم إزالة الهالة الملونة — كانت: `0 8px 32px ${link.color}18, 0 2px 0 ${link.color}22`
+            boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
             transition: { type: "spring", stiffness: 300, damping: 22 },
           },
           tap: {
@@ -173,9 +179,10 @@ export default function SocialCard({ link, index, loaded }) {
               background: hovered ? `${link.color}22` : "rgba(255,255,255,0.05)",
               color: hovered ? link.color : "rgba(255,255,255,0.4)",
               border: `1px solid ${hovered ? link.color + "40" : "rgba(255,255,255,0.05)"}`,
-              boxShadow: hovered ? `0 0 18px ${link.color}28` : "none",
+              // ✅ تم إزالة الهالة الملونة من الأيقونة — كانت: `0 0 18px ${link.color}28`
+              boxShadow: "none",
               fontSize: "clamp(18px, 4vw, 22px)",
-              transition: "background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s",
+              transition: "background 0.3s, color 0.3s, border-color 0.3s",
             }}
           >
             {getIcon(link.id)}

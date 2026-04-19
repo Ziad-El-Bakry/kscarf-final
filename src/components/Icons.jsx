@@ -1,6 +1,6 @@
 // ============================================================
 // k. SCARF — Social Icons Component
-// Developed by programmer Ziad Al-Bakry
+// Developed by programmer Ziad El-Bakry
 // ============================================================
 
 export const Icons = {
