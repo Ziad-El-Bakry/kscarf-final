@@ -70,6 +70,15 @@ const badgeVariants = {
 
 export default function SocialCard({ link, index, loaded }) {
   const [hovered, setHovered] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(link.url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <motion.a
@@ -256,18 +265,49 @@ export default function SocialCard({ link, index, loaded }) {
             </div>
           </div>
 
-          {/* Arrow */}
-          <motion.div
-            variants={arrowVariants}
+          <div
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "clamp(8px, 1.5vw, 12px)",
               flexShrink: 0,
-              fontSize: "clamp(16px, 4vw, 20px)",
-              color: hovered ? link.color : "rgba(255,255,255,0.15)",
-              transition: "color 0.3s",
             }}
           >
-            <Icons.Arrow />
-          </motion.div>
+            {/* Copy Button */}
+            <motion.div
+              role="button"
+              onClick={handleCopy}
+              whileHover={{ scale: 1.15, color: link.color }}
+              whileTap={{ scale: 0.9 }}
+              style={{
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                padding: "4px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: copied ? "#4ade80" : "rgba(255,255,255,0.3)",
+                transition: "color 0.2s",
+                outline: "none",
+              }}
+              title="نسخ الرابط"
+            >
+              {copied ? <Icons.Check /> : <Icons.Copy />}
+            </motion.div>
+
+            {/* Arrow */}
+            <motion.div
+              variants={arrowVariants}
+              style={{
+                fontSize: "clamp(16px, 4vw, 20px)",
+                color: hovered ? link.color : "rgba(255,255,255,0.15)",
+                transition: "color 0.3s",
+              }}
+            >
+              <Icons.Arrow />
+            </motion.div>
+          </div>
         </div>
       </motion.div>
     </motion.a>

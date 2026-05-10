@@ -14,16 +14,15 @@ import StoreHeader   from "./components/StoreHeader";
 import SocialCard    from "./components/SocialCard";
 import SparkleBanner from "./components/SparkleBanner";
 import Footer        from "./components/Footer";
+import SplashScreen  from "./components/SplashScreen";
 
 export default function App() {
-  const loaded = usePageLoaded(80);
-  const [focusRing, setFocusRing] = useState(null);
+  const [showSplash, setShowSplash] = useState(true);
+  const loaded = usePageLoaded(80) && !showSplash;
 
   useEffect(() => {
     // Keyboard navigation for accessibility
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") setFocusRing(null);
-      
       // Navigate through social links with arrow keys
       if (e.key === "ArrowDown" || e.key === "ArrowUp") {
         const links = document.querySelectorAll('a[href*="://"]');
@@ -51,30 +50,12 @@ export default function App() {
         fontFamily: "'Cairo', Georgia, serif",
       }}
     >
+      <AnimatePresence>
+        {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      </AnimatePresence>
+
       {/* ── Animated Background ── */}
       <AuroraStars />
-
-      {/* ── Focus ring indicator for keyboard nav ── */}
-      <AnimatePresence>
-        {focusRing && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            style={{
-              position: "fixed",
-              left: focusRing.left - 4,
-              top: focusRing.top - 4,
-              width: focusRing.width + 8,
-              height: focusRing.height + 8,
-              border: "2px solid rgba(224, 163, 184, 0.6)",
-              borderRadius: 14,
-              pointerEvents: "none",
-              zIndex: 9998,
-            }}
-          />
-        )}
-      </AnimatePresence>
 
       {/* ── Page content ── */}
       <motion.div
@@ -116,16 +97,11 @@ export default function App() {
               key={link.id}
               initial={{ opacity: 0, x: 20 }}
               animate={loaded ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-              transition={{
+               transition={{
                 duration: ANIMATION_DURATION.slow,
                 delay: 0.8 + i * 0.08,
                 ease: ANIMATION_EASE.smooth,
               }}
-              onFocus={(e) => {
-                const rect = e.currentTarget.querySelector("a").getBoundingClientRect();
-                setFocusRing(rect);
-              }}
-              onBlur={() => setFocusRing(null)}
             >
               <SocialCard link={link} index={i} loaded={loaded} />
             </motion.div>

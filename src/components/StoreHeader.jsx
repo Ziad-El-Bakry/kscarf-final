@@ -150,7 +150,7 @@ export default function StoreHeader({ loaded }) {
               border: "1px solid transparent",
               borderTopColor: "rgba(224, 163, 184, 0.6)",
               borderRightColor: "rgba(224, 163, 184, 0.15)",
-              animation: "kSpin 4s linear infinite",
+              animation: "kSpin 6s linear infinite",
               pointerEvents: "none",
             }}
           />
