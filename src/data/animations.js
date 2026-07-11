@@ -1,5 +1,5 @@
 // ============================================================
-// k. SCARF — Animation Configuration & Presets
+// Bondok — Animation Configuration & Presets
 // Developed by programmer Ziad El-Bakry
 // ============================================================
 

@@ -1,10 +1,10 @@
 // ============================================================
-// k. SCARF — Data & Constants
+// Bondok — Data & Constants
 // Developed by programmer Ziad El-Bakry
 // ============================================================
 
 export const STORE_INFO = {
-  name: "k. SCARF",
+  name: "Bondok",
   tagline: "أناقتك.. هويتك",
   subtitle: "Fashion · Elegance · Identity",
   year: "2025",
@@ -15,7 +15,7 @@ export const SOCIAL_LINKS = [
   {
     id: "instagram",
     name: "Instagram",
-    handle: "@k.scarf1",
+    handle: "@Bondok",
     badge: "تابعنا",
     description: "أحدث التصاميم والصور",
     url: "https://www.instagram.com/k.scarf1?igsh=dTN3OHNyMHZmbWdu",
@@ -24,7 +24,7 @@ export const SOCIAL_LINKS = [
   {
     id: "tiktok",
     name: "TikTok",
-    handle: "@kscarf1",
+    handle: "@Bondok",
     badge: "شاهدنا",
     description: "فيديوهات وتوصيات الأزياء",
     url: "https://www.tiktok.com/@kscarf1?_r=1&_t=ZS-93wCSMc9j44",
@@ -33,7 +33,7 @@ export const SOCIAL_LINKS = [
   {
     id: "facebook",
     name: "Facebook",
-    handle: "k. SCARF",
+    handle: "Bondok",
     badge: "انضم",
     description: "عروض وأخبار المتجر",
     url: "https://www.facebook.com/share/1853kTkGi1/",
@@ -51,7 +51,7 @@ export const SOCIAL_LINKS = [
   {
     id: "telegram",
     name: "Telegram",
-    handle: "@kscarf1",
+    handle: "@Bondok",
     badge: "قناة",
     description: "آخر الأخبار والعروض الحصرية",
     url: "https://t.me/kscarf1",
