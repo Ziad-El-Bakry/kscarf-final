@@ -129,8 +129,10 @@ export default function StoreHeader({ loaded }) {
               width: "100%",
               height: "100%",
               objectFit: "contain",
-              filter: "drop-shadow(0 4px 15px rgba(212, 175, 55, 0.15))",
-              mixBlendMode: "lighten", // Removes the black background
+              filter: "contrast(1.2) drop-shadow(0 4px 15px rgba(212, 175, 55, 0.15))",
+              mixBlendMode: "screen",
+              WebkitMaskImage: "radial-gradient(ellipse at center, black 65%, transparent 100%)",
+              maskImage: "radial-gradient(ellipse at center, black 65%, transparent 100%)",
             }}
           />
         </motion.div>
