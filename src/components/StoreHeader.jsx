@@ -100,79 +100,54 @@ export default function StoreHeader({ loaded }) {
         variants={itemVariants}
         style={{
           position: "relative",
-          display: "inline-block",
+          display: "inline-flex",
+          justifyContent: "center",
           marginBottom: "clamp(12px, 3vw, 15px)",
+          width: "100%",
         }}
       >
         <motion.div
           whileHover={{ scale: 1.02 }}
-          animate={{
-            boxShadow: [
-              "0 0 36px rgba(224, 163, 184, 0.15), 0 0 70px rgba(224, 163, 184, 0.05)",
-              "0 0 42px rgba(224, 163, 184, 0.25), 0 0 80px rgba(224, 163, 184, 0.15)",
-              "0 0 36px rgba(224, 163, 184, 0.15), 0 0 70px rgba(224, 163, 184, 0.05)",
-            ],
-          }}
-          transition={{ duration: 3, repeat: Infinity }}
+          transition={{ duration: 0.4 }}
           style={{
-            width: "clamp(180px, 60vw, 250px)",
-            height: "clamp(110px, 35vw, 150px)",
-            borderRadius: 90,
-            overflow: "hidden",
-            background: "rgba(20, 10, 30, 0.4)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            border: "1.5px solid rgba(224, 163, 184, 0.4)",
+            width: "clamp(240px, 80vw, 380px)",
+            height: "clamp(70px, 25vw, 120px)",
             position: "relative",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            maskImage: "radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 70%)",
+            WebkitMaskImage: "radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 70%)",
           }}
         >
           <motion.img
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 4, repeat: Infinity }}
+            animate={{ scale: [1, 1.02, 1] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             src={LOGO_SRC}
             alt={`${STORE_INFO.name} Logo`}
             style={{
               width: "100%",
               height: "100%",
               objectFit: "contain",
-              padding: 8,
-            }}
-          />
-          {/* Spinning ring — pure CSS */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: 20,
-              border: "1px solid transparent",
-              borderTopColor: "rgba(224, 163, 184, 0.6)",
-              borderRightColor: "rgba(224, 163, 184, 0.15)",
-              animation: "kSpin 6s linear infinite",
-              pointerEvents: "none",
+              filter: "drop-shadow(0 4px 15px rgba(212, 175, 55, 0.15))",
+              mixBlendMode: "lighten", // Removes the black background
             }}
           />
         </motion.div>
       </motion.div>
 
-      {/* Name */}
+      {/* Name (Visually Hidden since the new logo includes the name) */}
       <motion.h1
         variants={itemVariants}
         style={{
-          fontFamily: "Georgia, 'Times New Roman', serif",
-          fontWeight: 700,
-          fontSize: "clamp(28px, 7vw, 38px)",
-          letterSpacing: "0.18em",
-          marginTop: "clamp(4px, 1vw, 6px)",
-          background:
-            "linear-gradient(to right, #E0A3B8, #D8BFD8, #802360, #1B2956, #D4A017, #E0A3B8)",
-          backgroundSize: "200% auto",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
-          animation: "textShine 5s linear infinite",
+          position: "absolute",
+          width: "1px",
+          height: "1px",
+          padding: 0,
+          margin: "-1px",
+          overflow: "hidden",
+          clip: "rect(0, 0, 0, 0)",
+          border: 0,
         }}
       >
         {STORE_INFO.name}
@@ -191,45 +166,48 @@ export default function StoreHeader({ loaded }) {
         {STORE_INFO.tagline}
       </motion.p>
 
-      {/* Divider */}
+      {/* Unified Quote */}
       <motion.div
         variants={itemVariants}
+        dir="ltr"
         style={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          gap: "clamp(8px, 1.5vw, 10px)",
+          marginBottom: "clamp(12px, 3vw, 18px)",
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: "clamp(26px, 7vw, 36px)",
+          fontStyle: "italic",
+          fontWeight: "600",
+          letterSpacing: "0.04em",
+          lineHeight: "1.3",
+          textAlign: "center",
+          background: "linear-gradient(to right, #D4A017, #F8E5A2, #E0A3B8, #e622e6ff, #D4A017)",
+          backgroundSize: "200% auto",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          animation: "textShine 5s linear infinite",
+          filter: "drop-shadow(0 2px 4px rgba(224, 163, 184, 0.2))"
         }}
       >
-        <motion.div
-          variants={lineScaleVariants}
-          style={{
-            height: 1,
-            width: "clamp(36px, 8vw, 48px)",
-            background:
-              "linear-gradient(to right, transparent, rgba(224, 163, 184, 0.3))",
-            transformOrigin: "left",
-          }}
-        />
-        <motion.div
-          variants={dividerDotVariants}
-          style={{
-            width: "clamp(3px, 0.5vw, 4px)",
-            height: "clamp(3px, 0.5vw, 4px)",
-            borderRadius: "50%",
-            background: "rgba(224, 163, 184, 0.6)",
-          }}
-        />
-        <motion.div
-          variants={lineScaleVariants}
-          style={{
-            height: 1,
-            width: "clamp(36px, 8vw, 48px)",
-            background:
-              "linear-gradient(to left, transparent, rgba(224, 163, 184, 0.3))",
-            transformOrigin: "right",
-          }}
-        />
+        <div>We don't follow trends,</div>
+        <div>we create them.</div>
+        
+        {/* Minimal Star Divider */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(8px, 2vw, 14px)", marginTop: "clamp(12px, 3vw, 16px)", width: "100%", fontFamily: "Arial, sans-serif" }}>
+          <motion.div
+            variants={lineScaleVariants}
+            style={{ height: "1px", width: "clamp(40px, 15vw, 80px)", background: "linear-gradient(to right, transparent, rgba(224, 163, 184, 0.4))" }}
+          />
+          <motion.div variants={dividerDotVariants} style={{ color: "rgba(224, 163, 184, 0.7)", fontSize: "clamp(12px, 2vw, 14px)", textShadow: "0 0 8px rgba(224, 163, 184, 0.6)" }}>
+            ✦
+          </motion.div>
+          <motion.div
+            variants={lineScaleVariants}
+            style={{ height: "1px", width: "clamp(40px, 15vw, 80px)", background: "linear-gradient(to left, transparent, rgba(224, 163, 184, 0.4))" }}
+          />
+        </div>
       </motion.div>
 
       <motion.p
@@ -238,7 +216,7 @@ export default function StoreHeader({ loaded }) {
           fontFamily: "Cairo, sans-serif",
           fontSize: "clamp(11px, 2vw, 12px)",
           color: "rgba(255, 255, 255, 0.25)",
-          marginTop: "clamp(8px, 2vw, 10px)",
+          marginTop: "clamp(8px, 2vw, 10px)",   
           letterSpacing: "0.04em",
         }}
       >

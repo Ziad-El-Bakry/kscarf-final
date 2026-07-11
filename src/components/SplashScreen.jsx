@@ -35,8 +35,8 @@ export default function SplashScreen({ onComplete }) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             style={{
-              width: "clamp(120px, 40vw, 180px)",
-              height: "clamp(120px, 40vw, 180px)",
+              width: "clamp(180px, 50vw, 280px)",
+              height: "clamp(60px, 20vw, 100px)",
               position: "relative",
             }}
           >
@@ -50,6 +50,7 @@ export default function SplashScreen({ onComplete }) {
                 objectFit: "contain",
                 position: "relative",
                 zIndex: 2,
+                mixBlendMode: "lighten",
               }}
             />
           </motion.div>
