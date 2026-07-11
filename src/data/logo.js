@@ -3,4 +3,4 @@
 // Developed by programmer Ziad El-Bakry
 // ============================================================
 
-export const LOGO_SRC = "/New logo.png";
+export const LOGO_SRC = "/New.png";
